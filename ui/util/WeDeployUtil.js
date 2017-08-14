@@ -38,6 +38,25 @@ export default class WeDeployUtil {
 			);
 	}
 
+	static addVacation(username, repository, enabled, comment, callback) {
+		WeDeploy
+			.data('https://database-github.wedeploy.io')
+			.create(
+				'vacation',
+				{
+					'username': username,
+					'repository': repository,
+					'enabled': enabled,
+					'comment': comment
+				}
+			)
+			.then(
+				function(vacation) {
+					callback(vacation);
+				}
+			);
+	}
+
 	static deleteTicket(ticketKey) {
 		var data = WeDeploy.data('https://database-github.wedeploy.io');
 
@@ -53,6 +72,24 @@ export default class WeDeployUtil {
 			.then(
 				function(user) {
 					callback(user);
+				}
+			);
+	}
+
+	static isVacationEnabled(username, repository, callback) {
+		WeDeploy
+			.data('https://database-github.wedeploy.io')
+			.where('username', '=', username)
+			.where('repository', '=', repository)
+			.limit(1)
+			.get('vacation')
+			.then(
+				function(vacation) {
+					if (vacation && vacation.length == 1) {
+						if (!!vacation[0].enabled) {
+							callback(vacation[0]);
+						}
+					}
 				}
 			);
 	}

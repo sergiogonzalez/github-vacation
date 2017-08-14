@@ -6,5 +6,9 @@
   {
     "path": "/user/*",
     "data": true
+  },
+  {
+    "path": "/vacation/*",
+    "data": true
   }
 ]

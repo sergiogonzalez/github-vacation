@@ -9,6 +9,7 @@ var logger = require('morgan');
 var path = require('path');
 var session = require('express-session');
 var sharedsession = require("express-socket.io-session");
+var WeDeployUtil = require('./util/WeDeployUtil.js').default;
 
 var closePull = require('./routes/close_pull');
 var index = require('./routes/index');
@@ -76,7 +77,15 @@ io.on(
 					data.owner,
 					data.repo,
 					function() {
-						console.log('WebHook Added');
+					}
+				);
+
+				WeDeployUtil.addVacation(
+					socket.handshake.session.username,
+					data.repo,
+					true,
+					'Testing Custom Comment',
+					function(repository) {
 					}
 				);
 			}
