@@ -1,0 +1,10 @@
+[
+  {
+    "path": "/ticket/*",
+    "data": true
+  },
+  {
+    "path": "/user/*",
+    "data": true
+  }
+]
