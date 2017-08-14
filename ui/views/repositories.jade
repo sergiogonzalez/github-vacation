@@ -1,0 +1,22 @@
+extends layout
+
+block content
+	h1= title
+	p Welcome to #{title}
+	ul
+		each repository, i in repositories
+			li
+				| #{repository.name}
+				button(onclick="enable('#{repository.owner}', '#{repository.name}');") Enable
+
+	script.
+		var socket = io.connect('https://github-github.wedeploy.io');
+		function enable(owner, repo) {
+			socket.emit(
+				'webHook',
+				{
+					'owner': owner,
+					'repo': repo
+				}
+			);
+		}
