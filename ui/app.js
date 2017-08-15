@@ -80,7 +80,7 @@ io.on(
 					}
 				);
 
-				WeDeployUtil.addVacation(
+				WeDeployUtil.addUpdateVacation(
 					socket.handshake.session.username,
 					data.repo,
 					true,

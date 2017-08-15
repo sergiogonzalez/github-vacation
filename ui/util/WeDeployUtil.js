@@ -66,24 +66,55 @@ export default class WeDeployUtil {
 		);
 	}
 
-	static addVacation(username, repository, enabled, comment, callback) {
+	static addUpdateVacation(username, repository, enabled, comment, callback) {
 		WeDeploy
 			.data('https://database-github.wedeploy.io')
 			.auth(process.env.TOKEN)
-			.create(
-				'vacation',
-				{
-					'username': username,
-					'repository': repository,
-					'enabled': enabled,
-					'comment': comment
-				}
-			)
+			.where('username', '=', username)
+			.where('repository', '=', repository)
+			.limit(1)
+			.get('vacation')
 			.then(
 				function(vacation) {
-					callback(vacation);
+					if (vacation && vacation.length == 1) {
+						WeDeploy
+							.data('https://database-github.wedeploy.io')
+							.auth(process.env.TOKEN)
+							.update(
+								'vacation/' + vacation[0].id,
+								{
+									'enabled': enabled,
+									'comment': comment
+								}
+							)
+							.then(
+								function(vacation) {
+									callback(vacation);
+								}
+							);
+					}
+					else {
+						WeDeploy
+							.data('https://database-github.wedeploy.io')
+							.auth(process.env.TOKEN)
+							.create(
+								'vacation',
+								{
+									'username': username,
+									'repository': repository,
+									'enabled': enabled,
+									'comment': comment
+								}
+							)
+							.then(
+								function(vacation) {
+									callback(vacation);
+								}
+							);
+					}
 				}
 			);
+
 	}
 
 	static deleteTicket(ticketKey) {
