@@ -21,46 +21,43 @@ export default class WeDeployUtil {
 			);
 	}
 
-	static addUser(username, accesstoken, callback) {
-		WeDeploy
-			.data('https://database-github.wedeploy.io')
-			.auth(process.env.TOKEN)
-			.create(
-				'user',
-				{
-					'id': username,
-					'username': username,
-					'accesstoken': accesstoken
-				}
-			)
-			.then(
-				function(user) {
-					callback(user);
-				}
-			);
-	}
-
 	static addUpdateUser(username, accesstoken, callback) {
 		WeDeployUtil.getUserAccessToken(
 			username,
 			function(user) {
 				if (user && user.length == 1) {
-					WeDeployUtil.updateUser(
-						username,
-						accesstoken,
-						function(user) {
-							callback(user);
-						}
-					);
+					WeDeploy
+						.data('https://database-github.wedeploy.io')
+						.auth(process.env.TOKEN)
+						.update(
+							'user/' + username,
+							{
+								'accesstoken': accesstoken
+							}
+						)
+						.then(
+							function(user) {
+								callback(user);
+							}
+						);
 				}
 				else {
-					WeDeployUtil.addUser(
-						username,
-						accesstoken,
-						function(user) {
-							callback(user);
-						}
-					);
+					WeDeploy
+						.data('https://database-github.wedeploy.io')
+						.auth(process.env.TOKEN)
+						.create(
+							'user',
+							{
+								'id': username,
+								'username': username,
+								'accesstoken': accesstoken
+							}
+						)
+						.then(
+							function(user) {
+								callback(user);
+							}
+						);
 				}
 			}
 		);
@@ -154,23 +151,6 @@ export default class WeDeployUtil {
 							callback(vacation[0]);
 						}
 					}
-				}
-			);
-	}
-
-	static updateUser(username, accesstoken, callback) {
-		WeDeploy
-			.data('https://database-github.wedeploy.io')
-			.auth(process.env.TOKEN)
-			.update(
-				'user/' + username,
-				{
-					'accesstoken': accesstoken
-				}
-			)
-			.then(
-				function(user) {
-					callback(user);
 				}
 			);
 	}
