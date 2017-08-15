@@ -7,6 +7,7 @@ export default class WeDeployUtil {
 
 		WeDeploy
 			.data('https://database-github.wedeploy.io')
+			.auth(process.env.TOKEN)
 			.create(
 				'ticket',
 				{
@@ -23,6 +24,7 @@ export default class WeDeployUtil {
 	static addUser(username, accesstoken, callback) {
 		WeDeploy
 			.data('https://database-github.wedeploy.io')
+			.auth(process.env.TOKEN)
 			.create(
 				'user',
 				{
@@ -41,6 +43,7 @@ export default class WeDeployUtil {
 	static addVacation(username, repository, enabled, comment, callback) {
 		WeDeploy
 			.data('https://database-github.wedeploy.io')
+			.auth(process.env.TOKEN)
 			.create(
 				'vacation',
 				{
@@ -58,7 +61,9 @@ export default class WeDeployUtil {
 	}
 
 	static deleteTicket(ticketKey) {
-		var data = WeDeploy.data('https://database-github.wedeploy.io');
+		var data = WeDeploy
+			.data('https://database-github.wedeploy.io')
+			.auth(process.env.TOKEN);
 
 		data.delete('ticket/' + ticketKey);
 	}
@@ -66,6 +71,7 @@ export default class WeDeployUtil {
 	static getUserAccessToken(username, callback) {
 		WeDeploy
 			.data('https://database-github.wedeploy.io')
+			.auth(process.env.TOKEN)
 			.where('username', '=', username)
 			.limit(1)
 			.get('user')
@@ -79,6 +85,7 @@ export default class WeDeployUtil {
 	static isVacationEnabled(username, repository, callback) {
 		WeDeploy
 			.data('https://database-github.wedeploy.io')
+			.auth(process.env.TOKEN)
 			.where('username', '=', username)
 			.where('repository', '=', repository)
 			.limit(1)
@@ -97,6 +104,7 @@ export default class WeDeployUtil {
 	static updateUser(username, accesstoken, callback) {
 		WeDeploy
 			.data('https://database-github.wedeploy.io')
+			.auth(process.env.TOKEN)
 			.update(
 				'user/' + username,
 				{
@@ -113,6 +121,7 @@ export default class WeDeployUtil {
 	static validateTicket(ticketKey, callback) {
 		WeDeploy
 			.data('https://database-github.wedeploy.io')
+			.auth(process.env.TOKEN)
 			.where('id', '=', ticketKey)
 			.limit(1)
 			.get('ticket')

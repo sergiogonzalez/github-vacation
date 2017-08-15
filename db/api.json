@@ -1,14 +1,23 @@
 [
-  {
-    "path": "/ticket/*",
-    "data": true
-  },
-  {
-    "path": "/user/*",
-    "data": true
-  },
-  {
-    "path": "/vacation/*",
-    "data": true
-  }
+	{
+		"path": "/ticket/*",
+		"data": true,
+		"auth": {
+			"validator": "$auth != null"
+		}
+	},
+	{
+		"path": "/user/*",
+		"data": true,
+		"auth": {
+			"validator": "$auth != null"
+		}
+	},
+	{
+		"path": "/vacation/*",
+		"data": true,
+		"auth": {
+			"validator": "$auth != null"
+		}
+	}
 ]
