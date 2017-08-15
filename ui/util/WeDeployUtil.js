@@ -40,6 +40,32 @@ export default class WeDeployUtil {
 			);
 	}
 
+	static addUpdateUser(username, accesstoken, callback) {
+		WeDeployUtil.getUserAccessToken(
+			username,
+			function(user) {
+				if (user && user.length == 1) {
+					WeDeployUtil.updateUser(
+						username,
+						accesstoken,
+						function(user) {
+							callback(user);
+						}
+					);
+				}
+				else {
+					WeDeployUtil.addUser(
+						username,
+						accesstoken,
+						function(user) {
+							callback(user);
+						}
+					);
+				}
+			}
+		);
+	}
+
 	static addVacation(username, repository, enabled, comment, callback) {
 		WeDeploy
 			.data('https://database-github.wedeploy.io')

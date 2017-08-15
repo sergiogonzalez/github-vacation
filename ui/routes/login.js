@@ -39,19 +39,13 @@ router.get('/', function(req, res, next) {
 								req.session.email = user.email;
 								req.session.username = user.username;
 
-								WeDeployUtil.getUserAccessToken(
-									req.session.username,
-									function(user) {
-										if (user && user.length == 1) {
-											WeDeployUtil.updateUser(req.session.username, req.session.access_token, function(user) {});
-										}
-										else {
-											WeDeployUtil.addUser(req.session.username, req.session.access_token, function(user) {});
-										}
+								WeDeployUtil.addUpdateUser(
+									user.username,
+									accessToken,
+									function (user) {
+										res.redirect('/repositories');
 									}
 								);
-
-								res.redirect('/repositories');
 							}
 						);
 					}
