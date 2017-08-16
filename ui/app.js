@@ -70,7 +70,7 @@ io.on(
 	'connection',
 	function (socket) {
 		socket.on(
-			'webHook',
+			'vacation',
 			function (data) {
 				GitHubUtil.addWebHook(
 					socket.handshake.session.access_token,
@@ -83,8 +83,8 @@ io.on(
 				WeDeployUtil.addUpdateVacation(
 					socket.handshake.session.username,
 					data.repo,
-					true,
-					'Testing Custom Comment',
+					data.vacationMode,
+					data.comment,
 					function(repository) {
 					}
 				);

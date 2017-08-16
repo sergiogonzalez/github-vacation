@@ -10,8 +10,8 @@ router.get('/', function(req, res, next) {
 		WeDeployUtil.addRandomTicket(
 			function (ticketKey) {
 				var tokenRequestUrl = GitHubUtil.getTokenRequestUrl(
-					'346c1c6568cf98e8d250',
-					'https://github-github.wedeploy.io/login',
+					process.env.CLIENT_ID,
+					'https://github-vacation.wedeploy.io/login',
 					'user:email,write:repo_hook,repo',
 					ticketKey);
 
@@ -41,7 +41,6 @@ router.get('/', function(req, res, next) {
 
 								WeDeployUtil.addUpdateUser(
 									user.username,
-									accessToken,
 									function (user) {
 										res.redirect('/repositories');
 									}

@@ -11,10 +11,10 @@ export default class GitHubUtil {
 			method: 'POST',
 			headers: headers,
 			form: {
-				'client_id': '346c1c6568cf98e8d250',
-				'client_secret': '8c80e360761eaa0770deae4435b2031567fd1bf1',
+				'client_id': process.env.CLIENT_ID,
+				'client_secret': process.env.CLIENT_SECRET,
 				'code': code,
-				'redirect_uri': 'https://github-github.wedeploy.io/login',
+				'redirect_uri': 'https://github-vacation.wedeploy.io/login',
 				'state': state
 			}
 		};
@@ -80,7 +80,7 @@ export default class GitHubUtil {
 				'events': ['pull_request'],
 				'active': true,
 				'config': {
-					'url': 'https://github-github.wedeploy.io/close_pull',
+					'url': 'https://github-vacation.wedeploy.io/close_pull',
 					'content_type': 'json'
 				}
 			},
@@ -98,10 +98,10 @@ export default class GitHubUtil {
 		);
 	}
 
-	static addComment(accessToken, owner, repo, pullId, comment, callback) {
+	static addComment(owner, repo, pullId, comment, callback) {
 		var headers = {
 			'Accept': 'application/vnd.github.v3+json',
-			'Authorization': 'token ' +  accessToken,
+			'Authorization': 'token ' +  process.env.GITHUB_VACATION_TOKEN,
 			'User-Agent': 'My Cool Application'
 		};
 
@@ -125,10 +125,10 @@ export default class GitHubUtil {
 		);
 	}
 
-	static closePullRequest(accessToken, owner, repo, pullId, callback) {
+	static closePullRequest(owner, repo, pullId, callback) {
 		var headers = {
 			'Accept': 'application/vnd.github.v3+json',
-			'Authorization': 'token ' +  accessToken,
+			'Authorization': 'token ' +  process.env.GITHUB_VACATION_TOKEN,
 			'User-Agent': 'My Cool Application'
 		};
 

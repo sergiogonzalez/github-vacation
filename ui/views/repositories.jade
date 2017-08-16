@@ -11,28 +11,32 @@ block content
 					div(class="card-body")
 						h4(class="card-title") #{repository.name}
 						h6(class="card-subtitle mb-2 text-muted") #{repository.owner}
-						h7 Vacation
-						button(type="button" class="btn btn-sm btn-toggle collapsed", data-target="##{repository.name}CollapseExample", data-toggle="collapse", aria-expanded="false", aria-pressed="false", autocomplete="off")
-							div(class="handle")
 
-						div(class="collapse", id="#{repository.name}CollapseExample")
+						form
 							div(class="form-group")
-								label(for="exampleFormControlTextarea1") Example textarea
-								textarea(class="form-control", rows="4")
-						p(class="card-text") Some quick example text to build on the card title and make up the bulk of the card's content
-						a(href="#", class="card-link") Card link
-						a(href="#", class="card-link") Another link
+								div(class="form-check")
+									label(class="form-check-label")
+										input(class="form-check-input", id="vacationMode#{repository.name}", type="checkbox" value="")
+										| Vacation Mode
+
+							div(class="form-group")
+								label(for="exampleFormControlTextarea1") Pull Request Comment
+								textarea(class="form-control", id="comment#{repository.name}", rows="3")
+
+							button(class="btn btn-primary", onclick="enable('#{repository.owner}', '#{repository.name}');") Save
 					div(class="card-footer text-muted")
 						| 2 days ago
 
 	script.
-		var socket = io.connect('https://github-github.wedeploy.io');
+		var socket = io.connect('https://github-vacation.wedeploy.io');
 		function enable(owner, repo) {
 			socket.emit(
-				'webHook',
+				'vacation',
 				{
 					'owner': owner,
-					'repo': repo
+					'repo': repo,
+					'vacationMode': ($('#vacationMode' + repo).is(":checked")),
+					'comment': $('#comment' + repo).val()
 				}
 			);
 		}

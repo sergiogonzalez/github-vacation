@@ -17,30 +17,23 @@ router.post(
 		var repository = json.repository;
 	
 		if (action == 'opened') {
-			WeDeployUtil.getUserAccessToken(
+			WeDeployUtil.isVacationEnabled(
 				repository.owner.login,
-				function(user) {
-					WeDeployUtil.isVacationEnabled(
+				repository.name,
+				function(vacation) {
+					GitHubUtil.addComment(
 						repository.owner.login,
 						repository.name,
-						function(vacation) {
-							GitHubUtil.addComment(
-								user[0].accesstoken,
-								repository.owner.login,
-								repository.name,
-								pullRequestId,
-								'Test Comment',
-								function() {}
-							);
+						pullRequestId,
+						vacation.comment,
+						function() {}
+					);
 
-							GitHubUtil.closePullRequest(
-								user[0].accesstoken,
-								repository.owner.login,
-								repository.name,
-								pullRequestId,
-								function() {}
-							);
-						}
+					GitHubUtil.closePullRequest(
+						repository.owner.login,
+						repository.name,
+						pullRequestId,
+						function() {}
 					);
 				}
 			);
