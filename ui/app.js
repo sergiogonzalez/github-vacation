@@ -87,7 +87,8 @@ io.on(
 					data.repo,
 					data.vacationMode,
 					data.comment,
-					function(repository) {
+					function(vacation) {
+						socket.emit('saved', {'repo': data.repo});
 					}
 				);
 			}

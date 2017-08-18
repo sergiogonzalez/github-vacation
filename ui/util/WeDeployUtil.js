@@ -122,6 +122,19 @@ export default class WeDeployUtil {
 			);
 	}
 
+	static getVacations(username, callback) {
+		WeDeploy
+			.data('https://database-vacation.wedeploy.io')
+			.auth(process.env.WEDEPLOY_TOKEN)
+			.where('username', '=', username)
+			.get('vacation')
+			.then(
+				function(vacation) {
+					callback(vacation);
+				}
+			);
+	}
+
 	static isVacationEnabled(username, repository, callback) {
 		WeDeploy
 			.data('https://database-vacation.wedeploy.io')

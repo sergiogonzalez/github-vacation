@@ -1,5 +1,6 @@
 import express from 'express';
 import GitHubUtil from '../util/GitHubUtil.js';
+import WeDeployUtil from '../util/WeDeployUtil.js';
 
 var router = express.Router();
 
@@ -8,13 +9,38 @@ router.get('/', function(req, res, next) {
 		req.session.username,
 		req.session.access_token,
 		function(repositories) {
-			res.render(
-				'repositories',
-				{
-					repositories: repositories,
-					title: 'Repositories',
-					avatar_url: req.session.avatar_url,
-					username: req.session.username
+			WeDeployUtil.getVacations(
+				req.session.username,
+				function(vacations) {
+
+					var repos = [];
+
+					for (var repository in repositories) {
+						var vacationEnabled = false;
+						var vacationComment = '';
+
+						for(var vacation in vacations) {
+							if (vacations[vacation].repository == repositories[repository].name) {
+
+								vacationEnabled = vacations[vacation].enabled;
+								vacationComment = vacations[vacation].comment;
+
+								break;
+							}
+						}
+
+						repos.push({'repository': repositories[repository], 'enabled': vacationEnabled, 'comment': vacationComment});
+					}
+
+					res.render(
+						'repositories',
+						{
+							vacationRepositories: repos,
+							title: 'Repositories',
+							avatar_url: req.session.avatar_url,
+							username: req.session.username
+						}
+					);
 				}
 			);
 		}
