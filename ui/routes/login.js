@@ -6,6 +6,12 @@ var router = express.Router();
 
 /* GET users listing. */
 router.get('/', function(req, res, next) {
+	if (req.session.username) {
+		res.redirect('/repositories');
+
+		return;
+	}
+
 	if (!req.query.code) {
 		WeDeployUtil.addRandomTicket(
 			function (ticketKey) {
