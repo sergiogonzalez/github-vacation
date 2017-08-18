@@ -25,10 +25,10 @@ block content
 
 							form
 								div(class="form-group")
-									div(class="form-check")
-										label(class="form-check-label")
-											input(class="form-check-input", id="vacationMode#{repository.name}", type="checkbox", checked=(vacationRepository.enabled ? "checked" : undefined))
-											| Vacation Mode
+									div(class="enable-vacation-mode")
+										label(class="switch")
+											input(class="enable-vacation", data-repository="#{repository.name}", data-owner="#{repository.owner}", id="vacationMode#{repository.name}", type="checkbox", checked=(vacationRepository.enabled ? "checked" : undefined))
+											span(class="slider round")
 									div(class="form-check")
 										label(class="form-check-label")
 											input(class="form-check-input", id="closePull#{repository.name}", type="checkbox", checked=(vacationRepository.closePull ? "checked" : undefined))
@@ -42,46 +42,5 @@ block content
 						div(class="card-footer text-muted")
 							| 2 days ago
 
-	script.
-		var socket = io.connect('https://github-vacation.wedeploy.io');
-		function enable(owner, repo) {
-			var saveButton = $('#repositoryCard' + repo + ' button');
-
-			saveButton.attr('class', 'btn btn-warning');
-			saveButton.html('<i class="fa fa-spinner fa-spin"></i> Saving...')
-
-			setTimeout(
-				function () {
-					socket.emit(
-						'vacation',
-						{
-							'owner': owner,
-							'repo': repo,
-							'vacationMode': ($('#vacationMode' + repo).is(":checked")),
-							'closePull': ($('#closePull' + repo).is(":checked")),
-							'comment': $('#comment' + repo).val()
-						}
-					);
-				},
-				500);
-		}
-
-		socket.on(
-			'saved',
-			function (data) {
-				var saveButton = $('#repositoryCard' + data.repo + ' button');
-
-				saveButton.attr('class', 'btn btn-success');
-				saveButton.html('<i class="fa fa-check"></i> Saved');
-
-				setTimeout(
-					function () {
-						var saveButton = $('#repositoryCard' + data.repo + ' button');
-
-						saveButton.attr('class', 'btn btn-primary');
-						saveButton.html('Save');
-					},
-					2000);
-			}
-		);
-
+block append js
+	script(src="/javascripts/repositories.js")

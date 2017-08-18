@@ -72,7 +72,7 @@ io.on(
 	'connection',
 	function (socket) {
 		socket.on(
-			'vacation',
+			'saveVacation',
 			function (data) {
 				GitHubUtil.addWebHook(
 					socket.handshake.session.access_token,
@@ -89,7 +89,29 @@ io.on(
 					data.closePull,
 					data.comment,
 					function(vacation) {
-						socket.emit('saved', {'repo': data.repo});
+						socket.emit('vacationSaved', {'repo': data.repo});
+					}
+				);
+			}
+		);
+
+		socket.on(
+			'enableVacation',
+			function (data) {
+				GitHubUtil.addWebHook(
+					socket.handshake.session.access_token,
+					data.owner,
+					data.repo,
+					function() {
+					}
+				);
+
+				WeDeployUtil.enableVacation(
+					socket.handshake.session.username,
+					data.repo,
+					data.enable,
+					function(vacation) {
+						socket.emit('vacationEnabled', {'vacation': vacation});
 					}
 				);
 			}

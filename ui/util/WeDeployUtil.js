@@ -102,6 +102,55 @@ export default class WeDeployUtil {
 
 	}
 
+	static enableVacation(username, repository, enabled, callback) {
+		WeDeploy
+			.data('https://database-vacation.wedeploy.io')
+			.auth(process.env.WEDEPLOY_TOKEN)
+			.where('username', '=', username)
+			.where('repository', '=', repository)
+			.limit(1)
+			.get('vacation')
+			.then(
+				function(vacation) {
+					if (vacation && vacation.length == 1) {
+						WeDeploy
+							.data('https://database-vacation.wedeploy.io')
+							.auth(process.env.WEDEPLOY_TOKEN)
+							.update(
+								'vacation/' + vacation[0].id,
+								{
+									'enabled': enabled
+								}
+							)
+							.then(
+								function(vacation) {
+									callback(vacation);
+								}
+							);
+					}
+					else {
+						WeDeploy
+							.data('https://database-vacation.wedeploy.io')
+							.auth(process.env.WEDEPLOY_TOKEN)
+							.create(
+								'vacation',
+								{
+									'username': username,
+									'repository': repository,
+									'enabled': enabled
+								}
+							)
+							.then(
+								function(vacation) {
+									callback(vacation);
+								}
+							);
+					}
+				}
+			);
+
+	}
+
 	static deleteTicket(ticketKey) {
 		var data = WeDeploy
 			.data('https://database-vacation.wedeploy.io')
