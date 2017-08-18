@@ -1,6 +1,100 @@
 extends layout
 
 block content
-	h1= title
-	p Welcome to #{title}
-	a(href="/login") Login
+	header(class="masthead")
+		div(class="header-content")
+			div(class="header-content-inner")
+				h1(id="homeHeading") Everybody needs a vacation,
+					br
+					| even developers
+				hr
+				p Enjoy your time off while we take care of your GitHub pull requests.
+				div(class="get-started")
+					a(class="btn btn-primary btn-xl", href="/login") Get Started!
+				div(class="find-out-more")
+					a(class="btn btn-warning btn-xl", href="#about") Find Out More
+
+	section(class="bg-primary", id="about")
+		div(class="container")
+			div(class="row")
+				div(class="col-lg-8 mx-auto text-center")
+					h2(class="section-heading text-white") We care for you!
+					hr(class="light")
+					p(class="text-faded") GitHub Vacation deals with your opened pull requests while you enjoy the outside life. Comment on the pull request letting the developer know when you'll be able to review it. Or mention some other colleague to review the pull request for you. Or just close it.
+					p(class="text-faded") Come'on, you know you deserve some time off!
+					a(class="btn btn-default btn-xl sr-button", href="/login") Get Started!
+
+	section(id="features")
+		div(class="container")
+			div(class="row")
+				div(class="col-lg-12 text-center")
+					h2(class="section-heading") How does it work?
+					hr(class="primary")
+		div(class="container")
+			div(class="row")
+				div(class="col-lg-3 col-md-6 text-center")
+					div(class="service-box")
+						i(class="fa fa-4x fa-cogs text-primary sr-icons")
+						h3 Automatic Setup
+						p(class="text-muted") GitHub Vacation is automatically configured in your GitHub repositories when you enable Vacation mode.
+				div(class="col-lg-3 col-md-6 text-center")
+					div(class="service-box")
+						i(class="fa fa-4x fa-github text-primary sr-icons")
+						h3 Repositories
+						p(class="text-muted") You can activate GitHub Vacation in any GitHub repository that you own.
+				div(class="col-lg-3 col-md-6 text-center")
+					div(class="service-box")
+						i(class="fa fa-4x fa-comments text-primary sr-icons")
+						h3 Comment
+						p(class="text-muted") Add custom comments when a new pull request is opened in any of your selected repositories. It's useful to mention other reviewers to take care of the pull.
+				div(class="col-lg-3 col-md-6 text-center")
+					div(class="service-box")
+						i(class="fa fa-4x fa-archive text-primary sr-icons")
+						h3 Close pulls
+						p(class="text-muted") Automatically close any pull request as soon as it's opened in any of your repositories.
+
+	section(class="bg-light", id="how-it-works")
+		div(class="container")
+			div(class="row")
+				div(class="col-lg-12")
+					ul(class="timeline")
+						li
+							div(class="timeline-image")
+								i(class="fa fa-4x fa-github")
+							div(class="timeline-panel")
+								div(class="timeline-heading")
+									h4 GitHub Authentication
+								div(class="timeline-body")
+									p(class="text-muted") You will be redirected to GitHub where you will be asked to sign in and then authorize
+										em  GitHub Vacation
+										|  application to access your contact information and repositories information.
+									p(class="text-muted") Then you will be redirected to GitHub Vacation where you will see all the GitHub repositories you own.
+
+						li(class="timeline-inverted")
+							div(class="timeline-image yellow-bg")
+								i(class="fa fa-4x fa-database")
+							div(class="timeline-panel")
+								div(class="timeline-heading")
+									h4 Select your repositories
+								div(class="timeline-body")
+									p(class="text-muted") A list with the GitHub repositories you own will be displayed. You can enable Vacation Mode in some specific repositories or in all of them. For each repository you can include a comment that will be added every time a new pull request is opened in that repository.
+									p(class="text-muted") Additionally, you can choose to close the pull requests as soon as they are created in the repository.
+						li
+							div(class="timeline-image")
+								img(class="rounded-circle img-fluid", src="/images/dog_vacation.jpeg", alt="")
+							div(class="timeline-panel")
+								div(class="timeline-heading")
+									h4 GitHub Vacation
+								div(class="timeline-body")
+									p(class="text-muted") The GitHub user
+										a(href="https://github.com/github-vacation") GitHub Vacation
+										|  will automatically add your comment in any pull request that is opened and, if selected, it will automatically close the pull request as well.
+						li(class="timeline-inverted")
+							div(class="timeline-image contrasted")
+								i(class="fa fa-4x fa-bicycle")
+							div(class="timeline-panel")
+								div(class="timeline-heading")
+									h4 Enjoy
+
+block append js
+	script(src="/javascripts/main.js")

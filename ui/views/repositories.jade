@@ -1,31 +1,40 @@
 extends layout
 
+block navigation
+	nav(class="navbar navbar-expand-lg navbar-light fixed-top repositories", id="mainNav")
+		a(class="navbar-brand", href="/") GitHub Vacation
+		button(class="navbar-toggler navbar-toggler-right", type="button", data-toggle="collapse", data-target="#navbarResponsive", aria-controls="navbarResponsive", aria-expanded="false", aria-label="Toggle navigation")
+			span(class="navbar-toggler-icon")
+
+		div(class="collapse navbar-collapse", id="navbarResponsive")
+			ul(class="navbar-nav ml-auto")
+				li(class="nav-item")
+					a(class="nav-link", href="#about") Sign Out
+
 block content
-	h1= title
-	p Welcome to #{title}
+	div(class="container repositories")
+		div(class="row")
+			each repository, i in repositories
+				div(class=".col-12 col-sm-12 col-md-6 col-lg-4 col-xl-4")
+					div(class="card", style="margin-top: 10px;")
+						div(class="card-body")
+							h4(class="card-title") #{repository.name}
+							h6(class="card-subtitle mb-2 text-muted") #{repository.owner}
 
-	div(class="row")
-		each repository, i in repositories
-			div(class=".col-12 col-sm-12 col-md-6 col-lg-4 col-xl-3")
-				div(class="card", style="margin-top: 10px;")
-					div(class="card-body")
-						h4(class="card-title") #{repository.name}
-						h6(class="card-subtitle mb-2 text-muted") #{repository.owner}
+							form
+								div(class="form-group")
+									div(class="form-check")
+										label(class="form-check-label")
+											input(class="form-check-input", id="vacationMode#{repository.name}", type="checkbox" value="")
+											| Vacation Mode
 
-						form
-							div(class="form-group")
-								div(class="form-check")
-									label(class="form-check-label")
-										input(class="form-check-input", id="vacationMode#{repository.name}", type="checkbox" value="")
-										| Vacation Mode
+								div(class="form-group")
+									label(for="exampleFormControlTextarea1") Pull Request Comment
+									textarea(class="form-control", id="comment#{repository.name}", rows="3")
 
-							div(class="form-group")
-								label(for="exampleFormControlTextarea1") Pull Request Comment
-								textarea(class="form-control", id="comment#{repository.name}", rows="3")
-
-							button(class="btn btn-primary", onclick="enable('#{repository.owner}', '#{repository.name}');") Save
-					div(class="card-footer text-muted")
-						| 2 days ago
+								button(class="btn btn-primary", onclick="enable('#{repository.owner}', '#{repository.name}');") Save
+						div(class="card-footer text-muted")
+							| 2 days ago
 
 	script.
 		var socket = io.connect('https://github-vacation.wedeploy.io');
