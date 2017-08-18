@@ -17,19 +17,21 @@ router.get('/', function(req, res, next) {
 
 					for (var repository in repositories) {
 						var vacationEnabled = false;
+						var vacationClosePull = false;
 						var vacationComment = '';
 
 						for(var vacation in vacations) {
 							if (vacations[vacation].repository == repositories[repository].name) {
 
 								vacationEnabled = vacations[vacation].enabled;
+								vacationClosePull = vacations[vacation].closePull;
 								vacationComment = vacations[vacation].comment;
 
 								break;
 							}
 						}
 
-						repos.push({'repository': repositories[repository], 'enabled': vacationEnabled, 'comment': vacationComment});
+						repos.push({'repository': repositories[repository], 'enabled': vacationEnabled, 'closePull': vacationClosePull, 'comment': vacationComment});
 					}
 
 					res.render(

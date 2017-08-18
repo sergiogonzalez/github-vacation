@@ -86,6 +86,7 @@ io.on(
 					socket.handshake.session.username,
 					data.repo,
 					data.vacationMode,
+					data.closePull,
 					data.comment,
 					function(vacation) {
 						socket.emit('saved', {'repo': data.repo});

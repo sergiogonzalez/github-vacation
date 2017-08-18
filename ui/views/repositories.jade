@@ -29,6 +29,10 @@ block content
 										label(class="form-check-label")
 											input(class="form-check-input", id="vacationMode#{repository.name}", type="checkbox", checked=(vacationRepository.enabled ? "checked" : undefined))
 											| Vacation Mode
+									div(class="form-check")
+										label(class="form-check-label")
+											input(class="form-check-input", id="closePull#{repository.name}", type="checkbox", checked=(vacationRepository.closePull ? "checked" : undefined))
+											| Close Pull
 
 								div(class="form-group")
 									label(for="exampleFormControlTextarea1") Pull Request Comment
@@ -54,6 +58,7 @@ block content
 							'owner': owner,
 							'repo': repo,
 							'vacationMode': ($('#vacationMode' + repo).is(":checked")),
+							'closePull': ($('#closePull' + repo).is(":checked")),
 							'comment': $('#comment' + repo).val()
 						}
 					);

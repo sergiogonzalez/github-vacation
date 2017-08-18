@@ -49,7 +49,7 @@ export default class WeDeployUtil {
 		);
 	}
 
-	static addUpdateVacation(username, repository, enabled, comment, callback) {
+	static addUpdateVacation(username, repository, enabled, closePull, comment, callback) {
 		WeDeploy
 			.data('https://database-vacation.wedeploy.io')
 			.auth(process.env.WEDEPLOY_TOKEN)
@@ -67,6 +67,7 @@ export default class WeDeployUtil {
 								'vacation/' + vacation[0].id,
 								{
 									'enabled': enabled,
+									'closePull': closePull,
 									'comment': comment
 								}
 							)
@@ -86,6 +87,7 @@ export default class WeDeployUtil {
 									'username': username,
 									'repository': repository,
 									'enabled': enabled,
+									'closePull': closePull,
 									'comment': comment
 								}
 							)
