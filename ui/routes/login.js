@@ -38,6 +38,7 @@ router.get('/', function(req, res, next) {
 							function(user) {
 								req.session.email = user.email;
 								req.session.username = user.username;
+								req.session.avatar_url = user.avatar_url;
 
 								WeDeployUtil.addUpdateUser(
 									user.username,

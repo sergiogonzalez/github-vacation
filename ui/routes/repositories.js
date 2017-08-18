@@ -12,7 +12,9 @@ router.get('/', function(req, res, next) {
 				'repositories',
 				{
 					repositories: repositories,
-					title: 'Repositories' 
+					title: 'Repositories',
+					avatar_url: req.session.avatar_url,
+					username: req.session.username
 				}
 			);
 		}

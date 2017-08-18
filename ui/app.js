@@ -14,6 +14,7 @@ var WeDeployUtil = require('./util/WeDeployUtil.js').default;
 var closePull = require('./routes/close_pull');
 var index = require('./routes/index');
 var login = require('./routes/login');
+var logout = require('./routes/logout');
 var repositories = require('./routes/repositories');
 
 var app = express();
@@ -22,12 +23,12 @@ var sess = {
 	secret: 'mysecret',
 	cookie: {},
 	resave: true,
-	saveUninitialized: true,
+	saveUninitialized: true
 };
 
 if (app.get('env') === 'production') {
-	app.set('trust proxy', 1) // trust first proxy
-	sess.cookie.secure = true // serve secure cookies
+	app.set('trust proxy', 1); // trust first proxy
+	sess.cookie.secure = true; // serve secure cookies
 }
 
 var sessionObj = session(sess);
@@ -48,6 +49,7 @@ app.use(express.static(path.join(__dirname, 'public')));
 
 app.use('/', index);
 app.use('/close_pull', closePull);
+app.use('/logout', logout);
 app.use('/login', login);
 app.use('/repositories', repositories);
 

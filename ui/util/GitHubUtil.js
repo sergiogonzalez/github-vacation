@@ -53,6 +53,7 @@ export default class GitHubUtil {
 					var json = JSON.parse(body);
 
 					var user = {
+						'avatar_url': json.avatar_url,
 						'email': json.email,
 						'username': json.login,
 						'name': json.name
