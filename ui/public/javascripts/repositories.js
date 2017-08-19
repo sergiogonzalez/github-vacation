@@ -51,6 +51,7 @@ socket.on(
 
 		if (data.enabled) {
 			card.removeClass('text-secondary');
+			card.removeClass('disabled-repository');
 			closePull.removeAttr("disabled");
 			comment.removeAttr("disabled");
 			comment.removeClass('text-secondary');
@@ -61,6 +62,7 @@ socket.on(
 		}
 		else {
 			card.addClass('text-secondary');
+			card.addClass('disabled-repository');
 			closePull.attr("disabled", true);
 			comment.attr("disabled", true);
 			comment.addClass('text-secondary');

@@ -18,7 +18,7 @@ block content
 				- var repository = vacationRepository.repository;
 
 				div(class=".col-12 col-sm-12 col-md-6 col-lg-4 col-xl-4" id="repositoryCard#{repository.name}")
-					div(id="card#{repository.name}" class=(vacationRepository.enabled ? "card" : "card text-secondary"), style="margin-top: 10px;")
+					div(id="card#{repository.name}" class=(vacationRepository.enabled ? "card" : "card text-secondary disabled-repository"), style="margin-top: 10px;")
 						div(class="card-body")
 							h4(class="card-title") #{repository.name}
 							h6(class="card-subtitle mb-2 text-muted") #{repository.owner}
@@ -30,15 +30,15 @@ block content
 											input(class="enable-vacation", data-repository="#{repository.name}", data-owner="#{repository.owner}", id="vacationMode#{repository.name}", type="checkbox", checked=(vacationRepository.enabled ? "checked" : undefined))
 											span(class="slider round")
 									div(class="form-check")
-										label(class="form-check-label")
+										label(class="form-check-label close-pull")
 											input(class="form-check-input", id="closePull#{repository.name}", type="checkbox", checked=(vacationRepository.closePull ? "checked" : undefined), disabled=(vacationRepository.enabled ? undefined : "disabled"))
 											| Close Pull
 
-								div(class="form-group")
+								div(class="form-group comment-pull")
 									label(for="exampleFormControlTextarea1") Pull Request Comment
 									textarea(class="form-control", id="comment#{repository.name}", rows="3" disabled=(vacationRepository.enabled ? undefined : "disabled")) #{vacationRepository.comment}
 
-								button(class=(vacationRepository.enabled ? "btn btn-primary" : "btn btn-secondary"), id="saveButton#{repository.name}", type="button", onclick="enable('#{repository.owner}', '#{repository.name}');", disabled=(vacationRepository.enabled ? undefined : "disabled")) Save
+								button(class=(vacationRepository.enabled ? "btn btn-primary save-button" : "btn btn-secondary save-button"), id="saveButton#{repository.name}", type="button", onclick="enable('#{repository.owner}', '#{repository.name}');", disabled=(vacationRepository.enabled ? undefined : "disabled")) Save
 						div(class="card-footer text-muted")
 							| 2 days ago
 

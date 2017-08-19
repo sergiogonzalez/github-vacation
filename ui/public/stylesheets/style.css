@@ -602,7 +602,7 @@ body {
   left: 0;
   right: 0;
   bottom: 0;
-  background-color: #ccc;
+  background-color: #999;
   -webkit-transition: .4s;
   transition: .4s;
 }
@@ -620,11 +620,11 @@ body {
 }
 
 input:checked + .slider {
-  background-color: #2196F3;
+  background-color: #F05F40;
 }
 
 input:focus + .slider {
-  box-shadow: 0 0 1px #2196F3;
+  box-shadow: 0 0 1px #F05F40;
 }
 
 input:checked + .slider:before {
@@ -646,4 +646,8 @@ input:checked + .slider:before {
   position: absolute;
   top: 10px;
   right: 10px;
+}
+
+.card.disabled-repository .card-title, .card.disabled-repository .card-subtitle, .card.disabled-repository .close-pull, .card.disabled-repository .comment-pull, .card.disabled-repository .save-button {
+  opacity: 0.3;
 }
