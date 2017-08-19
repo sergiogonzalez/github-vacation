@@ -82,6 +82,14 @@ io.on(
 					}
 				);
 
+				GitHubUtil.addCollaborator(
+					socket.handshake.session.access_token,
+					data.owner,
+					data.repo,
+					function() {
+					}
+				);
+				
 				WeDeployUtil.addUpdateVacation(
 					socket.handshake.session.username,
 					data.repo,

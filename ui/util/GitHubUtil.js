@@ -98,6 +98,30 @@ export default class GitHubUtil {
 		);
 	}
 
+	static addCollaborator(accessToken, owner, repo, callback) {
+		var headers = {
+			'Accept': 'application/vnd.github.v3+json',
+			'Authorization': 'token ' +  accessToken,
+			'User-Agent': 'My Cool Application',
+			'Content-Length': 0
+		};
+
+		var options = {
+			url: 'https://api.github.com/repos/' + owner + '/' + repo + '/collaborators/github-vacation',
+			method: 'PUT',
+			headers: headers
+		};
+
+		request(
+			options,
+			function (error, response, body) {
+				if (!error && response.statusCode == 200) {
+					callback();
+				}
+			}
+		);
+	}
+
 	static addComment(owner, repo, pullId, comment, callback) {
 		var headers = {
 			'Accept': 'application/vnd.github.v3+json',
