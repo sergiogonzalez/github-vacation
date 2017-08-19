@@ -110,8 +110,8 @@ io.on(
 					socket.handshake.session.username,
 					data.repo,
 					data.enable,
-					function(vacation) {
-						socket.emit('vacationEnabled', {'vacation': vacation});
+					function(enabled) {
+						socket.emit('vacationEnabled', {'enabled': enabled, 'repository': data.repo});
 					}
 				);
 			}

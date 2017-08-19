@@ -124,7 +124,7 @@ export default class WeDeployUtil {
 							)
 							.then(
 								function(vacation) {
-									callback(vacation);
+									callback(enabled);
 								}
 							);
 					}
@@ -142,7 +142,7 @@ export default class WeDeployUtil {
 							)
 							.then(
 								function(vacation) {
-									callback(vacation);
+									callback(enabled);
 								}
 							);
 					}

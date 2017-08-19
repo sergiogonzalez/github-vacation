@@ -18,7 +18,7 @@ block content
 				- var repository = vacationRepository.repository;
 
 				div(class=".col-12 col-sm-12 col-md-6 col-lg-4 col-xl-4" id="repositoryCard#{repository.name}")
-					div(class="card", style="margin-top: 10px;")
+					div(id="card#{repository.name}" class=(vacationRepository.enabled ? "card" : "card text-secondary"), style="margin-top: 10px;")
 						div(class="card-body")
 							h4(class="card-title") #{repository.name}
 							h6(class="card-subtitle mb-2 text-muted") #{repository.owner}
@@ -31,14 +31,14 @@ block content
 											span(class="slider round")
 									div(class="form-check")
 										label(class="form-check-label")
-											input(class="form-check-input", id="closePull#{repository.name}", type="checkbox", checked=(vacationRepository.closePull ? "checked" : undefined))
+											input(class="form-check-input", id="closePull#{repository.name}", type="checkbox", checked=(vacationRepository.closePull ? "checked" : undefined), disabled=(vacationRepository.enabled ? undefined : "disabled"))
 											| Close Pull
 
 								div(class="form-group")
 									label(for="exampleFormControlTextarea1") Pull Request Comment
-									textarea(class="form-control", id="comment#{repository.name}", rows="3") #{vacationRepository.comment}
+									textarea(class="form-control", id="comment#{repository.name}", rows="3" disabled=(vacationRepository.enabled ? undefined : "disabled")) #{vacationRepository.comment}
 
-								button(class="btn btn-primary", type="button", onclick="enable('#{repository.owner}', '#{repository.name}');") Save
+								button(class=(vacationRepository.enabled ? "btn btn-primary" : "btn btn-secondary"), id="saveButton#{repository.name}", type="button", onclick="enable('#{repository.owner}', '#{repository.name}');", disabled=(vacationRepository.enabled ? undefined : "disabled")) Save
 						div(class="card-footer text-muted")
 							| 2 days ago
 

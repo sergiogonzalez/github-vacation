@@ -41,6 +41,36 @@ socket.on(
 	}
 );
 
+socket.on(
+	'vacationEnabled',
+	function (data) {
+		var card = $('#card' + data.repository);
+		var closePull = $('#closePull' + data.repository);
+		var comment = $('#comment' + data.repository);
+		var saveButton = $('#saveButton' + data.repository);
+
+		if (data.enabled) {
+			card.removeClass('text-secondary');
+			closePull.removeAttr("disabled");
+			comment.removeAttr("disabled");
+			comment.removeClass('text-secondary');
+			saveButton.removeClass('btn-secondary');
+			saveButton.addClass('btn-primary');
+			saveButton.removeAttr("disabled");
+
+		}
+		else {
+			card.addClass('text-secondary');
+			closePull.attr("disabled", true);
+			comment.attr("disabled", true);
+			comment.addClass('text-secondary');
+			saveButton.removeClass('btn-primary');
+			saveButton.addClass('btn-secondary');
+			saveButton.attr("disabled", true);
+		}
+	}
+);
+
 $(document).ready(function() {
 	$('input.enable-vacation').change(
 		function () {
