@@ -1,5 +1,8 @@
 extends layout
 
+block append css
+	link(rel="stylesheet", href="/stylesheets/p-loading.min.css")
+
 block navigation
 	nav(class="navbar navbar-expand-lg navbar-light fixed-top repositories", id="mainNav")
 		a(class="navbar-brand", href="/") GitHub Vacation
@@ -44,3 +47,4 @@ block content
 
 block append js
 	script(src="/javascripts/repositories.js")
+	script(src="/javascripts/p-loading.min.js")

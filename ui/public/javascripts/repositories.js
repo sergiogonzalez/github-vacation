@@ -1,10 +1,12 @@
 var socket = io.connect('https://github-vacation.wedeploy.io');
 
 function enable(owner, repo) {
-	var saveButton = $('#repositoryCard' + repo + ' button');
+	var card = $('#card' + repo);
 
-	saveButton.attr('class', 'btn btn-warning');
-	saveButton.html('<i class="fa fa-spinner fa-spin"></i> Saving...');
+	card.ploading({
+		action: 'show',
+		spinner: 'wave'
+	});
 
 	setTimeout(
 		function () {
@@ -25,19 +27,11 @@ function enable(owner, repo) {
 socket.on(
 	'vacationSaved',
 	function (data) {
-		var saveButton = $('#repositoryCard' + data.repo + ' button');
+		var card = $('#card' + data.repo);
 
-		saveButton.attr('class', 'btn btn-success');
-		saveButton.html('<i class="fa fa-check"></i> Saved');
-
-		setTimeout(
-			function () {
-				var saveButton = $('#repositoryCard' + data.repo + ' button');
-
-				saveButton.attr('class', 'btn btn-primary');
-				saveButton.html('Save');
-			},
-			2000);
+		card.ploading({
+			action: 'hide'
+		});
 	}
 );
 
@@ -70,12 +64,25 @@ socket.on(
 			saveButton.addClass('btn-secondary');
 			saveButton.attr("disabled", true);
 		}
+
+		var card = $('#card' + data.repository);
+
+		card.ploading({
+			action: 'hide'
+		});
 	}
 );
 
 $(document).ready(function() {
 	$('input.enable-vacation').change(
 		function () {
+			var card = $('#card' + this.getAttribute('data-repository'));
+
+			card.ploading({
+				action: 'show',
+				spinner: 'wave'
+			});
+			
 			socket.emit(
 				'enableVacation',
 				{
