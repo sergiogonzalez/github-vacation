@@ -17,7 +17,7 @@ router.get('/', function(req, res, next) {
 			function (ticketKey) {
 				var tokenRequestUrl = GitHubUtil.getTokenRequestUrl(
 					process.env.CLIENT_ID,
-					'https://github-vacation.wedeploy.io/login',
+					process.env.WEDEPLOY_UI_BASE_URL + '/login',
 					'user:email,write:repo_hook,repo',
 					ticketKey);
 

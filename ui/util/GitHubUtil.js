@@ -14,7 +14,7 @@ export default class GitHubUtil {
 				'client_id': process.env.CLIENT_ID,
 				'client_secret': process.env.CLIENT_SECRET,
 				'code': code,
-				'redirect_uri': 'https://github-vacation.wedeploy.io/login',
+				'redirect_uri': process.env.WEDEPLOY_UI_BASE_URL + '/login',
 				'state': state
 			}
 		};

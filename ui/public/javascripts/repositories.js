@@ -1,4 +1,4 @@
-var socket = io.connect('https://github-vacation.wedeploy.io');
+var socket = io.connect(process.env.WEDEPLOY_UI_BASE_URL);
 
 function enable(owner, repo) {
 	var card = $('#card' + repo);

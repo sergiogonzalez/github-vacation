@@ -6,7 +6,7 @@ export default class WeDeployUtil {
 		var ticketKey = randomstring.generate();
 
 		WeDeploy
-			.data('https://database-vacation.wedeploy.io')
+			.data(process.env.WEDEPLOY_DB_BASE_URL)
 			.auth(process.env.WEDEPLOY_TOKEN)
 			.create(
 				'ticket',
@@ -27,7 +27,7 @@ export default class WeDeployUtil {
 			function(user) {
 				if (!user || user.length == 0) {
 					WeDeploy
-						.data('https://database-vacation.wedeploy.io')
+						.data(process.env.WEDEPLOY_DB_BASE_URL)
 						.auth(process.env.WEDEPLOY_TOKEN)
 						.create(
 							'user',
@@ -51,7 +51,7 @@ export default class WeDeployUtil {
 
 	static addUpdateVacation(username, repository, enabled, closePull, comment, callback) {
 		WeDeploy
-			.data('https://database-vacation.wedeploy.io')
+			.data(process.env.WEDEPLOY_DB_BASE_URL)
 			.auth(process.env.WEDEPLOY_TOKEN)
 			.where('username', '=', username)
 			.where('repository', '=', repository)
@@ -61,7 +61,7 @@ export default class WeDeployUtil {
 				function(vacation) {
 					if (vacation && vacation.length == 1) {
 						WeDeploy
-							.data('https://database-vacation.wedeploy.io')
+							.data(process.env.WEDEPLOY_DB_BASE_URL)
 							.auth(process.env.WEDEPLOY_TOKEN)
 							.update(
 								'vacation/' + vacation[0].id,
@@ -79,7 +79,7 @@ export default class WeDeployUtil {
 					}
 					else {
 						WeDeploy
-							.data('https://database-vacation.wedeploy.io')
+							.data(process.env.WEDEPLOY_DB_BASE_URL)
 							.auth(process.env.WEDEPLOY_TOKEN)
 							.create(
 								'vacation',
@@ -104,7 +104,7 @@ export default class WeDeployUtil {
 
 	static enableVacation(username, repository, enabled, callback) {
 		WeDeploy
-			.data('https://database-vacation.wedeploy.io')
+			.data(process.env.WEDEPLOY_DB_BASE_URL)
 			.auth(process.env.WEDEPLOY_TOKEN)
 			.where('username', '=', username)
 			.where('repository', '=', repository)
@@ -114,7 +114,7 @@ export default class WeDeployUtil {
 				function(vacation) {
 					if (vacation && vacation.length == 1) {
 						WeDeploy
-							.data('https://database-vacation.wedeploy.io')
+							.data(process.env.WEDEPLOY_DB_BASE_URL)
 							.auth(process.env.WEDEPLOY_TOKEN)
 							.update(
 								'vacation/' + vacation[0].id,
@@ -130,7 +130,7 @@ export default class WeDeployUtil {
 					}
 					else {
 						WeDeploy
-							.data('https://database-vacation.wedeploy.io')
+							.data(process.env.WEDEPLOY_DB_BASE_URL)
 							.auth(process.env.WEDEPLOY_TOKEN)
 							.create(
 								'vacation',
@@ -153,7 +153,7 @@ export default class WeDeployUtil {
 
 	static deleteTicket(ticketKey) {
 		var data = WeDeploy
-			.data('https://database-vacation.wedeploy.io')
+			.data(process.env.WEDEPLOY_DB_BASE_URL)
 			.auth(process.env.WEDEPLOY_TOKEN);
 
 		data.delete('ticket/' + ticketKey);
@@ -161,7 +161,7 @@ export default class WeDeployUtil {
 
 	static getUser(username, callback) {
 		WeDeploy
-			.data('https://database-vacation.wedeploy.io')
+			.data(process.env.WEDEPLOY_DB_BASE_URL)
 			.auth(process.env.WEDEPLOY_TOKEN)
 			.where('username', '=', username)
 			.limit(1)
@@ -175,7 +175,7 @@ export default class WeDeployUtil {
 
 	static getVacations(username, callback) {
 		WeDeploy
-			.data('https://database-vacation.wedeploy.io')
+			.data(process.env.WEDEPLOY_DB_BASE_URL)
 			.auth(process.env.WEDEPLOY_TOKEN)
 			.where('username', '=', username)
 			.get('vacation')
@@ -188,7 +188,7 @@ export default class WeDeployUtil {
 
 	static isVacationEnabled(username, repository, callback) {
 		WeDeploy
-			.data('https://database-vacation.wedeploy.io')
+			.data(process.env.WEDEPLOY_DB_BASE_URL)
 			.auth(process.env.WEDEPLOY_TOKEN)
 			.where('username', '=', username)
 			.where('repository', '=', repository)
@@ -207,7 +207,7 @@ export default class WeDeployUtil {
 
 	static validateTicket(ticketKey, callback) {
 		WeDeploy
-			.data('https://database-vacation.wedeploy.io')
+			.data(process.env.WEDEPLOY_DB_BASE_URL)
 			.auth(process.env.WEDEPLOY_TOKEN)
 			.where('id', '=', ticketKey)
 			.limit(1)
