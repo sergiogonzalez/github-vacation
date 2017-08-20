@@ -32,7 +32,9 @@ h2,
 h3,
 h4,
 h5,
-h6 {
+h6,
+.repositories .close-pull-wrapper,
+.repositories .comment-pull {
   font-family: 'Open Sans', 'Helvetica Neue', Arial, sans-serif; }
 
 p {
@@ -650,4 +652,11 @@ input:checked + .slider:before {
 
 .card.disabled-repository .card-title, .card.disabled-repository .card-subtitle, .card.disabled-repository .close-pull, .card.disabled-repository .comment-pull, .card.disabled-repository .save-button {
   opacity: 0.3;
+}
+
+.repositories .form-group.close-pull-wrapper {
+  margin-top: 20px;
+}
+.repositories .form-group.close-pull-wrapper input {
+  margin-right: 10px;
 }

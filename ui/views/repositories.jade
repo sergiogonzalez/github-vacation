@@ -27,11 +27,12 @@ block content
 							h6(class="card-subtitle mb-2 text-muted") #{repository.owner}
 
 							form
-								div(class="form-group")
+								div(class="form-group vacation-mode")
 									div(class="enable-vacation-mode")
 										label(class="switch")
 											input(class="enable-vacation", data-repository="#{repository.name}", data-owner="#{repository.owner}", id="vacationMode#{repository.name}", type="checkbox", checked=(vacationRepository.enabled ? "checked" : undefined))
 											span(class="slider round")
+								div(class="form-group close-pull-wrapper")
 									div(class="form-check")
 										label(class="form-check-label close-pull")
 											input(class="form-check-input", id="closePull#{repository.name}", type="checkbox", checked=(vacationRepository.closePull ? "checked" : undefined), disabled=(vacationRepository.enabled ? undefined : "disabled"))
@@ -39,7 +40,7 @@ block content
 
 								div(class="form-group comment-pull")
 									label(for="exampleFormControlTextarea1") Pull Request Comment
-									textarea(class="form-control", id="comment#{repository.name}", rows="3" disabled=(vacationRepository.enabled ? undefined : "disabled")) #{vacationRepository.comment}
+									textarea(class="form-control", id="comment#{repository.name}", rows="3", disabled=(vacationRepository.enabled ? undefined : "disabled"), placeholder="Write your comment...") #{vacationRepository.comment}
 
 								button(class=(vacationRepository.enabled ? "btn btn-primary save-button" : "btn btn-secondary save-button"), id="saveButton#{repository.name}", type="button", onclick="enable('#{repository.owner}', '#{repository.name}');", disabled=(vacationRepository.enabled ? undefined : "disabled")) Save
 						div(class="card-footer text-muted")
