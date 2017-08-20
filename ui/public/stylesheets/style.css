@@ -585,7 +585,7 @@ body {
     padding: 0 100px 20px 20px; } }
 
   .container.repositories {
-    margin-top: 100px;
+    margin-top: 120px;
   }
 
 .switch {
@@ -659,4 +659,18 @@ input:checked + .slider:before {
 }
 .repositories .form-group.close-pull-wrapper input {
   margin-right: 10px;
+}
+
+.repository-messages-wrapper {
+  position: fixed;
+  top: 56px;
+  text-align: center;
+  width: 80%;
+  left: 10%;
+  height: 50px;
+  z-index: 100;
+}
+
+.report-message {
+  margin-bottom: 2px;
 }

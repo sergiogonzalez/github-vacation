@@ -24,6 +24,17 @@ function enable(owner, repo) {
 		500);
 }
 
+function addSuccessMessage(message) {
+	var html = $('<div class="alert alert-success alert-dismissible fade show report-message" role="alert"><button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>' + message + '</div>');
+
+	$('#reportMessages').prepend(html);
+	setTimeout(
+		function () {
+			html.alert('close');
+		},
+		3500);
+}
+
 socket.on(
 	'vacationSaved',
 	function (data) {
@@ -32,6 +43,8 @@ socket.on(
 		card.ploading({
 			action: 'hide'
 		});
+
+		addSuccessMessage('Vacation for repository <strong>' + data.repo + '</strong> was saved successfully.')
 	}
 );
 
@@ -52,7 +65,7 @@ socket.on(
 			saveButton.removeClass('btn-secondary');
 			saveButton.addClass('btn-primary');
 			saveButton.removeAttr("disabled");
-
+			addSuccessMessage('Repository <strong>' + data.repository + '</strong> was enabled successfully.')
 		}
 		else {
 			card.addClass('text-secondary');
@@ -63,6 +76,7 @@ socket.on(
 			saveButton.removeClass('btn-primary');
 			saveButton.addClass('btn-secondary');
 			saveButton.attr("disabled", true);
+			addSuccessMessage('Repository <strong>' + data.repository + '</strong> was disabled successfully.')
 		}
 
 		var card = $('#card' + data.repository);

@@ -15,6 +15,7 @@ block navigation
 					a(class="nav-link", href="/logout") Sign Out #{username}
 
 block content
+	div(id="reportMessages" class="repository-messages-wrapper")
 	div(class="container repositories")
 		div(class="row")
 			each vacationRepository, i in vacationRepositories
@@ -43,8 +44,6 @@ block content
 									textarea(class="form-control", id="comment#{repository.name}", rows="3", disabled=(vacationRepository.enabled ? undefined : "disabled"), placeholder="Write your comment...") #{vacationRepository.comment}
 
 								button(class=(vacationRepository.enabled ? "btn btn-primary save-button" : "btn btn-secondary save-button"), id="saveButton#{repository.name}", type="button", onclick="enable('#{repository.owner}', '#{repository.name}');", disabled=(vacationRepository.enabled ? undefined : "disabled")) Save
-						div(class="card-footer text-muted")
-							| 2 days ago
 
 block append js
 	script(src="/javascripts/repositories.js")
