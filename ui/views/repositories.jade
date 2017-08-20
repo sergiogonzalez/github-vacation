@@ -18,33 +18,33 @@ block content
 	div(id="reportMessages" class="repository-messages-wrapper")
 	div(class="container repositories")
 		div(class="row")
-			each vacationRepository, i in vacationRepositories
-				- var repository = vacationRepository.repository;
-
-				div(class=".col-12 col-sm-12 col-md-6 col-lg-4 col-xl-4" id="repositoryCard#{repository.name}")
-					div(id="card#{repository.name}" class=(vacationRepository.enabled ? "card" : "card text-secondary disabled-repository"), style="margin-top: 10px;")
+			each repository, i in repositories
+				div(class=".col-12 col-sm-12 col-md-6 col-lg-4 col-xl-4" id="repositoryCard#{repository.repositoryName}")
+					div(id="card#{repository.repositoryName}" class=(repository.enabled ? "card" : "card text-secondary disabled-repository"), style="margin-top: 10px;")
 						div(class="card-body")
-							h4(class="card-title") #{repository.name}
-							h6(class="card-subtitle mb-2 text-muted") #{repository.owner}
+							h4(class="card-title") #{repository.repositoryName}
+							h6(class="card-subtitle mb-2 text-muted") #{repository.repositoryOwner}
 
 							form
 								div(class="form-group vacation-mode")
 									div(class="enable-vacation-mode")
 										label(class="switch")
-											input(class="enable-vacation", data-repository="#{repository.name}", data-owner="#{repository.owner}", id="vacationMode#{repository.name}", type="checkbox", checked=(vacationRepository.enabled ? "checked" : undefined))
+											input(class="enable-vacation", data-repository-name="#{repository.repositoryName}", data-repository-owner="#{repository.repositoryOwner}", id="vacationMode#{repository.repositoryName}", type="checkbox", checked=(repository.enabled ? "checked" : undefined))
 											span(class="slider round")
 								div(class="form-group close-pull-wrapper")
 									div(class="form-check")
 										label(class="form-check-label close-pull")
-											input(class="form-check-input", id="closePull#{repository.name}", type="checkbox", checked=(vacationRepository.closePull ? "checked" : undefined), disabled=(vacationRepository.enabled ? undefined : "disabled"))
+											input(class="form-check-input", id="closePull#{repository.repositoryName}", type="checkbox", checked=(repository.closePull ? "checked" : undefined), disabled=(repository.enabled ? undefined : "disabled"))
 											| Close Pull
 
 								div(class="form-group comment-pull")
 									label(for="exampleFormControlTextarea1") Pull Request Comment
-									textarea(class="form-control", id="comment#{repository.name}", rows="3", disabled=(vacationRepository.enabled ? undefined : "disabled"), placeholder="Write your comment...") #{vacationRepository.comment}
+									textarea(class="form-control", id="comment#{repository.repositoryName}", rows="3", disabled=(repository.enabled ? undefined : "disabled"), placeholder="Write your comment...") #{repository.comment}
 
-								button(class=(vacationRepository.enabled ? "btn btn-primary save-button" : "btn btn-secondary save-button"), id="saveButton#{repository.name}", type="button", onclick="enable('#{repository.owner}', '#{repository.name}');", disabled=(vacationRepository.enabled ? undefined : "disabled")) Save
+								button(class=(repository.enabled ? "btn btn-primary save-button" : "btn btn-secondary save-button"), id="saveButton#{repository.repositoryName}", type="button", onclick="enable('#{repository.repositoryOwner}', '#{repository.repositoryName}');", disabled=(repository.enabled ? undefined : "disabled")) Save
 
 block append js
+	script
+		| WEDEPLOY_UI_BASE_URL = '#{WEDEPLOY_UI_BASE_URL}';
 	script(src="/javascripts/repositories.js")
 	script(src="/javascripts/p-loading.min.js")

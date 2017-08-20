@@ -13,7 +13,7 @@ router.get('/', function(req, res, next) {
 				req.session.username,
 				function(vacations) {
 
-					var repos = [];
+					var renderRepositories = [];
 
 					for (var repository in repositories) {
 						var vacationEnabled = false;
@@ -31,16 +31,17 @@ router.get('/', function(req, res, next) {
 							}
 						}
 
-						repos.push({'repository': repositories[repository], 'enabled': vacationEnabled, 'closePull': vacationClosePull, 'comment': vacationComment});
+						renderRepositories.push({'repositoryName': repositories[repository].name, 'repositoryOwner': repositories[repository].owner, 'enabled': vacationEnabled, 'closePull': vacationClosePull, 'comment': vacationComment});
 					}
 
 					res.render(
 						'repositories',
 						{
-							vacationRepositories: repos,
+							repositories: renderRepositories,
 							title: 'Repositories',
 							avatar_url: req.session.avatar_url,
-							username: req.session.username
+							username: req.session.username,
+							WEDEPLOY_UI_BASE_URL: process.env.WEDEPLOY_UI_BASE_URL
 						}
 					);
 				}

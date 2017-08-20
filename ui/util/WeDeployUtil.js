@@ -49,12 +49,12 @@ export default class WeDeployUtil {
 		);
 	}
 
-	static addUpdateVacation(username, repository, enabled, closePull, comment, callback) {
+	static addUpdateVacation(username, repositoryName, enabled, closePull, comment, callback) {
 		WeDeploy
 			.data(process.env.WEDEPLOY_DB_BASE_URL)
 			.auth(process.env.WEDEPLOY_TOKEN)
 			.where('username', '=', username)
-			.where('repository', '=', repository)
+			.where('repository', '=', repositoryName)
 			.limit(1)
 			.get('vacation')
 			.then(
@@ -85,7 +85,7 @@ export default class WeDeployUtil {
 								'vacation',
 								{
 									'username': username,
-									'repository': repository,
+									'repository': repositoryName,
 									'enabled': enabled,
 									'closePull': closePull,
 									'comment': comment
@@ -102,12 +102,12 @@ export default class WeDeployUtil {
 
 	}
 
-	static enableVacation(username, repository, enabled, callback) {
+	static enableVacation(username, repositoryName, enabled, callback) {
 		WeDeploy
 			.data(process.env.WEDEPLOY_DB_BASE_URL)
 			.auth(process.env.WEDEPLOY_TOKEN)
 			.where('username', '=', username)
-			.where('repository', '=', repository)
+			.where('repository', '=', repositoryName)
 			.limit(1)
 			.get('vacation')
 			.then(
@@ -136,7 +136,7 @@ export default class WeDeployUtil {
 								'vacation',
 								{
 									'username': username,
-									'repository': repository,
+									'repository': repositoryName,
 									'enabled': enabled
 								}
 							)
@@ -186,12 +186,12 @@ export default class WeDeployUtil {
 			);
 	}
 
-	static isVacationEnabled(username, repository, callback) {
+	static isVacationEnabled(username, repositoryName, callback) {
 		WeDeploy
 			.data(process.env.WEDEPLOY_DB_BASE_URL)
 			.auth(process.env.WEDEPLOY_TOKEN)
 			.where('username', '=', username)
-			.where('repository', '=', repository)
+			.where('repository', '=', repositoryName)
 			.limit(1)
 			.get('vacation')
 			.then(

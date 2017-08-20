@@ -76,28 +76,28 @@ io.on(
 			function (data) {
 				GitHubUtil.addWebHook(
 					socket.handshake.session.access_token,
-					data.owner,
-					data.repo,
+					data.repositoryOwner,
+					data.repositoryName,
 					function() {
 					}
 				);
 
 				GitHubUtil.addCollaborator(
 					socket.handshake.session.access_token,
-					data.owner,
-					data.repo,
+					data.repositoryOwner,
+					data.repositoryName,
 					function() {
 					}
 				);
 				
 				WeDeployUtil.addUpdateVacation(
 					socket.handshake.session.username,
-					data.repo,
+					data.repositoryName,
 					data.vacationMode,
 					data.closePull,
 					data.comment,
 					function(vacation) {
-						socket.emit('vacationSaved', {'repo': data.repo});
+						socket.emit('vacationSaved', {'repositoryName': data.repositoryName});
 					}
 				);
 			}
@@ -108,18 +108,18 @@ io.on(
 			function (data) {
 				GitHubUtil.addWebHook(
 					socket.handshake.session.access_token,
-					data.owner,
-					data.repo,
+					data.repositoryOwner,
+					data.repositoryName,
 					function() {
 					}
 				);
 
 				WeDeployUtil.enableVacation(
 					socket.handshake.session.username,
-					data.repo,
+					data.repositoryName,
 					data.enable,
 					function(enabled) {
-						socket.emit('vacationEnabled', {'enabled': enabled, 'repository': data.repo});
+						socket.emit('vacationEnabled', {'enabled': enabled, 'repositoryName': data.repositoryName});
 					}
 				);
 			}

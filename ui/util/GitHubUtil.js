@@ -65,7 +65,7 @@ export default class GitHubUtil {
 		);
 	}
 
-	static addWebHook(accessToken, owner, repo, callback) {
+	static addWebHook(accessToken, repositoryOwner, repositoryName, callback) {
 		var headers = {
 			'Accept': 'application/vnd.github.v3+json',
 			'Authorization': 'token ' +  accessToken,
@@ -73,7 +73,7 @@ export default class GitHubUtil {
 		};
 
 		var options = {
-			url: 'https://api.github.com/repos/' + owner + '/' + repo + '/hooks',
+			url: 'https://api.github.com/repos/' + repositoryOwner + '/' + repositoryName + '/hooks',
 			method: 'POST',
 			headers: headers,
 			body: {
@@ -98,7 +98,7 @@ export default class GitHubUtil {
 		);
 	}
 
-	static addCollaborator(accessToken, owner, repo, callback) {
+	static addCollaborator(accessToken, repositoryOwner, repositoryName, callback) {
 		var headers = {
 			'Accept': 'application/vnd.github.v3+json',
 			'Authorization': 'token ' +  accessToken,
@@ -107,7 +107,7 @@ export default class GitHubUtil {
 		};
 
 		var options = {
-			url: 'https://api.github.com/repos/' + owner + '/' + repo + '/collaborators/github-vacation',
+			url: 'https://api.github.com/repos/' + repositoryOwner + '/' + repositoryName + '/collaborators/github-vacation',
 			method: 'PUT',
 			headers: headers
 		};
@@ -122,7 +122,7 @@ export default class GitHubUtil {
 		);
 	}
 
-	static addComment(owner, repo, pullId, comment, callback) {
+	static addComment(repositoryOwner, repositoryName, pullId, comment, callback) {
 		var headers = {
 			'Accept': 'application/vnd.github.v3+json',
 			'Authorization': 'token ' +  process.env.GITHUB_VACATION_TOKEN,
@@ -130,7 +130,7 @@ export default class GitHubUtil {
 		};
 
 		var options = {
-			url: 'https://api.github.com/repos/' + owner + '/' + repo + '/issues/' + pullId + '/comments',
+			url: 'https://api.github.com/repos/' + repositoryOwner + '/' + repositoryName + '/issues/' + pullId + '/comments',
 			method: 'POST',
 			headers: headers,
 			body: {
@@ -149,7 +149,7 @@ export default class GitHubUtil {
 		);
 	}
 
-	static closePullRequest(owner, repo, pullId, callback) {
+	static closePullRequest(repositoryOwner, repositoryName, pullId, callback) {
 		var headers = {
 			'Accept': 'application/vnd.github.v3+json',
 			'Authorization': 'token ' +  process.env.GITHUB_VACATION_TOKEN,
@@ -157,7 +157,7 @@ export default class GitHubUtil {
 		};
 
 		var options = {
-			url: 'https://api.github.com/repos/' + owner + '/' + repo + '/pulls/' + pullId,
+			url: 'https://api.github.com/repos/' + repositoryOwner + '/' + repositoryName + '/pulls/' + pullId,
 			method: 'PATCH',
 			headers: headers,
 			body: {
@@ -203,13 +203,13 @@ export default class GitHubUtil {
 				if (!error && response.statusCode == 200) {
 					var json = JSON.parse(body);
 
-					var repos = [];
+					var repositories = [];
 
-					for(var repo in json) {
-						repos.push({'name': json[repo].name, 'owner': json[repo].owner.login});
+					for(var repository in json) {
+						repositories.push({'name': json[repository].name, 'owner': json[repository].owner.login});
 					}
 
-					callback(repos);
+					callback(repositories);
 				}
 			}
 		);

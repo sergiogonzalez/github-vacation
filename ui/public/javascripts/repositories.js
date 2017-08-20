@@ -1,7 +1,7 @@
-var socket = io.connect(process.env.WEDEPLOY_UI_BASE_URL);
+var socket = io.connect(WEDEPLOY_UI_BASE_URL);
 
-function enable(owner, repo) {
-	var card = $('#card' + repo);
+function enable(repositoryOwner, repositoryName) {
+	var card = $('#card' + repositoryName);
 
 	card.ploading({
 		action: 'show',
@@ -13,11 +13,11 @@ function enable(owner, repo) {
 			socket.emit(
 				'saveVacation',
 				{
-					'owner': owner,
-					'repo': repo,
-					'vacationMode': ($('#vacationMode' + repo).is(":checked")),
-					'closePull': ($('#closePull' + repo).is(":checked")),
-					'comment': $('#comment' + repo).val()
+					'repositoryOwner': repositoryOwner,
+					'repositoryName': repositoryName,
+					'vacationMode': ($('#vacationMode' + repositoryName).is(":checked")),
+					'closePull': ($('#closePull' + repositoryName).is(":checked")),
+					'comment': $('#comment' + repositoryName).val()
 				}
 			);
 		},
@@ -38,23 +38,23 @@ function addSuccessMessage(message) {
 socket.on(
 	'vacationSaved',
 	function (data) {
-		var card = $('#card' + data.repo);
+		var card = $('#card' + data.repositoryName);
 
 		card.ploading({
 			action: 'hide'
 		});
 
-		addSuccessMessage('Vacation for repository <strong>' + data.repo + '</strong> was saved successfully.')
+		addSuccessMessage('Vacation for repository <strong>' + data.repositoryName + '</strong> was saved successfully.')
 	}
 );
 
 socket.on(
 	'vacationEnabled',
 	function (data) {
-		var card = $('#card' + data.repository);
-		var closePull = $('#closePull' + data.repository);
-		var comment = $('#comment' + data.repository);
-		var saveButton = $('#saveButton' + data.repository);
+		var card = $('#card' + data.repositoryName);
+		var closePull = $('#closePull' + data.repositoryName);
+		var comment = $('#comment' + data.repositoryName);
+		var saveButton = $('#saveButton' + data.repositoryName);
 
 		if (data.enabled) {
 			card.removeClass('text-secondary');
@@ -65,7 +65,7 @@ socket.on(
 			saveButton.removeClass('btn-secondary');
 			saveButton.addClass('btn-primary');
 			saveButton.removeAttr("disabled");
-			addSuccessMessage('Repository <strong>' + data.repository + '</strong> was enabled successfully.')
+			addSuccessMessage('Repository <strong>' + data.repositoryName + '</strong> was enabled successfully.')
 		}
 		else {
 			card.addClass('text-secondary');
@@ -76,10 +76,10 @@ socket.on(
 			saveButton.removeClass('btn-primary');
 			saveButton.addClass('btn-secondary');
 			saveButton.attr("disabled", true);
-			addSuccessMessage('Repository <strong>' + data.repository + '</strong> was disabled successfully.')
+			addSuccessMessage('Repository <strong>' + data.repositoryName + '</strong> was disabled successfully.')
 		}
 
-		var card = $('#card' + data.repository);
+		var card = $('#card' + data.repositoryName);
 
 		card.ploading({
 			action: 'hide'
@@ -90,7 +90,7 @@ socket.on(
 $(document).ready(function() {
 	$('input.enable-vacation').change(
 		function () {
-			var card = $('#card' + this.getAttribute('data-repository'));
+			var card = $('#card' + this.getAttribute('data-repository-name'));
 
 			card.ploading({
 				action: 'show',
@@ -101,8 +101,8 @@ $(document).ready(function() {
 				'enableVacation',
 				{
 					'enable': this.checked,
-					'owner': this.getAttribute('data-owner'),
-					'repo': this.getAttribute('data-repository')
+					'repositoryOwner': this.getAttribute('data-repository-owner'),
+					'repositoryName': this.getAttribute('data-repository-name')
 				}
 			);
 		}
